@@ -7,7 +7,7 @@ use Illuminate\Http\JsonResponse;
 
 class CategoryController extends Controller
 {
-    public function createCategory($name): JsonResponse
+    public function create($name): JsonResponse
     {
         Category::create([
             'name' => $name
@@ -16,23 +16,14 @@ class CategoryController extends Controller
         return response()->json(['message' => 'Category created successfully'], 201);
     }
 
-    public function updateCategory(Category $category, $name): JsonResponse
-    {
-        $category->update([
-            'name' => $name
-        ]);
-
-        return response()->json(['message' => 'Category updated successfully']);
-    }
-
-    public function deleteCategory(Category $category): JsonResponse
+    public function delete(Category $category): JsonResponse
     {
         $category->delete();
 
         return response()->json(['message' => 'Category deleted successfully']);
     }
 
-    public function swapCategories(Category $category1, Category $category2): JsonResponse
+    public function swap(Category $category1, Category $category2): JsonResponse
     {
         $temp = $category1->position_index;
         $category1->update([
@@ -43,5 +34,14 @@ class CategoryController extends Controller
         ]);
 
         return response()->json(['message' => 'Categories swapped successfully']);
+    }
+
+    public function update(Category $category, $name): JsonResponse
+    {
+        $category->update([
+            'name' => $name
+        ]);
+
+        return response()->json(['message' => 'Category updated successfully']);
     }
 }
