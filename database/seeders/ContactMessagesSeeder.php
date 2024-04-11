@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\ContactMessage;
+use Illuminate\Database\Seeder;
 
 class ContactMessagesSeeder extends Seeder
 {
@@ -20,18 +20,21 @@ class ContactMessagesSeeder extends Seeder
                 'name' => 'John Doe',
                 'business_name' => 'ABC Company',
                 'email' => 'john@example.com',
+                'subject' => 'Test Message',
                 'message' => 'This is a test message from John Doe.',
             ],
             [
                 'name' => 'Jane Smith',
                 'business_name' => null,
                 'email' => 'jane@example.com',
+                'subject' => 'Test Message',
                 'message' => 'This is another test message from Jane Smith.',
             ],
             [
                 'name' => 'Alice Johnson',
                 'business_name' => 'XYZ Corporation',
                 'email' => 'example@mail.com',
+                'subject' => 'Test Message',
                 'message' => 'This is a sample message from Alice Johnson.',
             ]
         ];
