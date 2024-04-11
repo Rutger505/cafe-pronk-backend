@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 // MENU RELATED ROUTES
 Route::prefix('menu')->group(function () {
-    Route::get('/', [MenuController::class, 'index']);
+    Route::get('/', [MenuController::class, 'all']);
 
     Route::prefix('category')->group(function () {
         Route::post('/{name}', [CategoryController::class, 'createCategory']);

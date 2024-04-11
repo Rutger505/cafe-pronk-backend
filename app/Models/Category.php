@@ -9,7 +9,11 @@ class Category extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
     protected $table = 'categories';
 
-    public $timestamps = false;
+    public function dishes()
+    {
+        return $this->hasMany(Dish::class);
+    }
 }
