@@ -24,4 +24,11 @@ class CategoryController extends Controller
 
         return response()->json(['message' => 'Category updated successfully']);
     }
+
+    public function deleteCategory(Category $category): JsonResponse
+    {
+        $category->delete();
+
+        return response()->json(['message' => 'Category deleted successfully']);
+    }
 }
