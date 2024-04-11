@@ -17,13 +17,15 @@ Route::prefix('menu')->group(function () {
         Route::post('/{name}', [CategoryController::class, 'createCategory']);
         Route::put('/{category}/{name}', [CategoryController::class, 'updateCategory']);
         Route::delete('/{category}', [CategoryController::class, 'deleteCategory']);
-        Route::patch('/swap/{category}/{category}', [CategoryController::class, 'swapCategories']);
+        Route::patch('/swap/{category1}/{category2}', [CategoryController::class, 'swapCategories']);
     });
-
-    Route::post('/dish/{category}/{name}/{description}/{price}', [DishController::class, 'createDish']);
-    Route::put('/dish/{dish}/{name}/{description}/{price}', [DishController::class, 'updateDish']);
-    Route::delete('/dish/{dish}', [DishController::class, 'deleteDish']);
-    Route::patch('/dish/swap/{dish}/{dish}', [DishController::class, 'swapDishes']);
+    
+    Route::prefix('dish')->group(function () {
+        Route::post('/{category}/{name}/{description}/{price}', [DishController::class, 'createDish']);
+        Route::put('/{dish}/{name}/{description}/{price}', [DishController::class, 'updateDish']);
+        Route::delete('/{dish}', [DishController::class, 'deleteDish']);
+        Route::patch('/swap/{dish1}/{dish2}', [DishController::class, 'swapDishes']);
+    });
 });
 
 // MESSAGE RELATED ROUTES

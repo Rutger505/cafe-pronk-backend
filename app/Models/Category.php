@@ -13,7 +13,8 @@ class Category extends Model
     protected $table = 'categories';
 
     protected $fillable = [
-        'name'
+        'name',
+        'position_index'
     ];
 
     public static function boot()

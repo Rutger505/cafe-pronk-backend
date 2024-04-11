@@ -31,4 +31,17 @@ class CategoryController extends Controller
 
         return response()->json(['message' => 'Category deleted successfully']);
     }
+
+    public function swapCategories(Category $category1, Category $category2): JsonResponse
+    {
+        $temp = $category1->position_index;
+        $category1->update([
+            'position_index' => $category2->position_index
+        ]);
+        $category2->update([
+            'position_index' => $temp
+        ]);
+
+        return response()->json(['message' => 'Categories swapped successfully']);
+    }
 }
