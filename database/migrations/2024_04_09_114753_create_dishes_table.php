@@ -12,9 +12,11 @@ return new class extends Migration {
     {
         Schema::create('dishes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->text('description');
             $table->string('price');
+            $table->integer('position_index', true);
         });
     }
 
