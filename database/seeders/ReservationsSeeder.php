@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Reservation;
+use Illuminate\Database\Seeder;
 
 class ReservationsSeeder extends Seeder
 {
@@ -19,14 +19,16 @@ class ReservationsSeeder extends Seeder
             [
                 'name' => 'John Doe',
                 'party_size' => 4,
-                'date' => '2024-04-15',
+                'datetime' => '2024-04-15 18:00:00',
+                'message' => 'Special occasion',
                 'pending' => true,
                 'accepted' => false,
             ],
             [
                 'name' => 'Jane Smith',
                 'party_size' => 2,
-                'date' => '2024-04-20',
+                'datetime' => '2024-04-20 19:30:00',
+                'message' => 'Birthday dinner',
                 'pending' => true,
                 'accepted' => false,
             ],
