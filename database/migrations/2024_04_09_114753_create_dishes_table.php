@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('name');
             $table->text('description');
             $table->string('price');
-            $table->integer('position_index');
+            $table->integer('position_index')->unique();
         });
     }
 
