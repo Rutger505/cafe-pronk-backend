@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // MENU RELATED ROUTES
@@ -42,12 +43,13 @@ Route::prefix('reservation')->group(function () {
     Route::patch('/decline/{reservation}', [ReservationController::class, 'decline']);
 });
 
-// ADMIN RELATED ROUTES
-Route::prefix('admin')->group(function () {
-    Route::post('/{user}', [AdminController::class, 'promoteToAdmin']);
-    Route::delete('/{user}', [AdminController::class, 'demoteFromAdmin']);
+// ACCOUNT RELATED ROUTES
+Route::prefix('auth')->group(function () {
+    Route::post('/{first_name}/{last_name}/{email}/{password}', [UserController::class, 'register']);
+    Route::post('/{email}/{password}', [UserController::class, 'loginAsAdmin']);
 });
 
-Route::prefix('auth')->group(function () {
-    Route::post('/{email}/{password}', [AuthController::class, 'loginAsAdmin']);
+Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'admin'], function () {
+    Route::post('/{user}', [AdminController::class, 'promoteToAdmin']);
+    Route::delete('/{user}', [AdminController::class, 'demoteFromAdmin']);
 });
