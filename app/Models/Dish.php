@@ -17,7 +17,8 @@ class Dish extends Model
         'category_id',
         'name',
         'description',
-        'price'
+        'price',
+        'position_index'
     ];
 
     public static function boot()
