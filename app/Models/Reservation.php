@@ -10,4 +10,14 @@ class Reservation extends Model
     use HasFactory;
 
     protected $table = 'reservations';
+
+    protected $fillable = [
+        'name',
+        'party_size',
+        'datetime',
+        'message',
+        'status',
+        'accepted',
+        'pending',
+    ];
 }

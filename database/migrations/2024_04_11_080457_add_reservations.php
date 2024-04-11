@@ -14,7 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->integer('party_size');
-            $table->date('date');
+            $table->datetime('datetime');
+            $table->text('message');
             $table->boolean('pending')->default(true);
             $table->boolean('accepted')->default(false);
             $table->timestamps();
