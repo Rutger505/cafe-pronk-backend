@@ -19,7 +19,7 @@ Route::prefix('menu')->group(function () {
         Route::delete('/{category}', [CategoryController::class, 'deleteCategory']);
         Route::patch('/swap/{category1}/{category2}', [CategoryController::class, 'swapCategories']);
     });
-    
+
     Route::prefix('dish')->group(function () {
         Route::post('/{category}/{name}/{description}/{price}', [DishController::class, 'createDish']);
         Route::put('/{dish}/{name}/{description}/{price}', [DishController::class, 'updateDish']);
@@ -30,15 +30,15 @@ Route::prefix('menu')->group(function () {
 
 // MESSAGE RELATED ROUTES
 Route::prefix('contact')->group(function () {
-    Route::get('/', [ContactController::class, 'getMessages']);
-    Route::post('/', [ContactController::class, 'createMessage']);
-    Route::delete('/{contactMessage}', [ContactController::class, 'deleteMessage']);
+    Route::get('/', [ContactController::class, 'all']);
+    Route::post('/{name}/{businessName}/{email}/{subject}/{message}', [ContactController::class, 'create']);
+    Route::delete('/{contactMessage}', [ContactController::class, 'delete']);
 });
 
 Route::prefix('reservation')->group(function () {
-    Route::get('/', [ReservationController::class, 'getReservations']);
-    Route::post('/', [ReservationController::class, 'createReservation']);
-    Route::patch('/', [ReservationController::class, 'acceptDeclineReservation']);
+    Route::get('/', [ReservationController::class, 'all']);
+    Route::post('/{name}/{partySize}/{message}', [ReservationController::class, 'create']);
+    Route::patch('/{reservation}', [ReservationController::class, 'acceptOrDecline']);
 });
 
 // ADMIN RELATED ROUTES
