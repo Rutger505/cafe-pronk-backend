@@ -18,5 +18,6 @@ class Reservation extends Model
         'message',
         'status',
         'accepted',
+        'pending',
     ];
 }

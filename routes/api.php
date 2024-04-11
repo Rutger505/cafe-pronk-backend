@@ -37,8 +37,9 @@ Route::prefix('contact')->group(function () {
 
 Route::prefix('reservation')->group(function () {
     Route::get('/', [ReservationController::class, 'all']);
-    Route::post('/{name}/{partySize}/{message}', [ReservationController::class, 'create']);
-    Route::patch('/{reservation}', [ReservationController::class, 'acceptOrDecline']);
+    Route::post('/{name}/{partySize}/{date}/{message}', [ReservationController::class, 'create']);
+    Route::patch('/accept/{reservation}', [ReservationController::class, 'accept']);
+    Route::patch('/decline/{reservation}', [ReservationController::class, 'decline']);
 });
 
 // ADMIN RELATED ROUTES
