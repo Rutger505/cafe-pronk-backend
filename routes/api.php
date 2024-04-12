@@ -45,9 +45,9 @@ Route::prefix('reservation')->group(function () {
 
 // ACCOUNT RELATED ROUTES
 Route::prefix('auth')->group(function () {
-    Route::post('/{email}/{password}', [UserController::class, 'loginAsAdmin']);
     Route::post('/register/{first_name}/{last_name}/{email}/{password}', [UserController::class, 'register']);
     Route::get('/login/{email}/{password}', [AdminController::class, 'login']);
+    Route::get('/check_token', [AuthController::class, 'checkToken']);
 });
 
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'admin'], function () {
