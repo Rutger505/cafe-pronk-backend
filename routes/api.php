@@ -22,7 +22,7 @@ Route::post('/reservation/{name}/{partySize}/{date}/{message}', [ReservationCont
 Route::prefix('auth')->group(function () {
     Route::post('/register/{first_name}/{last_name}/{email}/{password}', [UserController::class, 'register']);
     Route::get('/login/{email}/{password}', [AdminController::class, 'login']);
-    Route::get('/auth/check_token', [AuthController::class, 'checkToken']);
+    Route::get('/check_token', [AuthController::class, 'checkToken']);
 });
 
 // ADMIN ENDPOINTS
