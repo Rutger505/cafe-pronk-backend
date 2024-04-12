@@ -4,29 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Model
 {
-    use HasFactory;
-
-    protected $table = 'users';
+    use HasApiTokens, HasFactory;
 
     public $timestamps = false;
 
+    protected $table = 'users';
+
+    // TODO hide password but enable it to compare for logging in
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
-        'admin'
+        'is_admin'
     ];
-
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    public function isAdmin()
-    {
-        return $this->admin === true;
-    }
 }
