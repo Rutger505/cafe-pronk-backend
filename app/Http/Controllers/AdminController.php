@@ -14,7 +14,7 @@ class AdminController extends Controller
 
         if (!$user || !Hash::check($password, $user->password)) {
             return response()->json([
-                'message' => 'Unauthorized'
+                'message' => 'Wrong credentials'
             ], 401);
         }
 
@@ -25,7 +25,7 @@ class AdminController extends Controller
         }
 
         return response()->json([
-            'message' => 'Authorized'
+            'token' => $user->createToken("authToken")->plainTextToken
         ]);
     }
 
