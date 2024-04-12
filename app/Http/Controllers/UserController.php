@@ -16,26 +16,4 @@ class UserController extends Controller
             'password' => Hash::make($password)
         ]);
     }
-
-    public function loginAsAdmin($email, $password)
-    {
-        $user = User::where('email', $email)->first();
-
-        if (!$user || !Hash::check($password, $user->password)) {
-            return response([
-                'message' => 'Invalid credentials'
-            ], 401);
-        }
-
-        if (!$user->is_admin) {
-            return response([
-                'message' => 'Not an admin'
-            ], 401);
-        }
-
-        return response([
-            'token' => $user->createToken("authToken")->plainTextToken
-        ]);
-    }
-
 }
