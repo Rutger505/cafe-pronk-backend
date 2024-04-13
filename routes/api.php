@@ -7,12 +7,11 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ReservationController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // PUBLIC ENDPOINTS
 // Get menu
-Route::get('/menu', [MenuController::class, 'all']);
+Route::get('/menu', [MenuController::class, 'index']);
 // Contact form
 Route::post('/contact/{name}/{businessName}/{email}/{subject}/{message}', [ContactController::class, 'create']);
 // Reservation form
@@ -20,9 +19,9 @@ Route::post('/reservation/{name}/{partySize}/{date}/{message}', [ReservationCont
 
 // ACCOUNT RELATED ROUTES
 Route::prefix('auth')->group(function () {
-    Route::post('/register/{first_name}/{last_name}/{email}/{password}', [UserController::class, 'register']);
-    Route::get('/login/{email}/{password}', [AdminController::class, 'login']);
-    Route::get('/check_token', [AuthController::class, 'checkToken']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/check', [AuthController::class, 'check']);
 });
 
 // ADMIN ENDPOINTS
@@ -51,7 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{contactMessage}', [ContactController::class, 'delete']);
     });
 
-    Route::prefix('reservation')->group(function () {
+    Route::prefix('reservations')->group(function () {
         Route::get('/', [ReservationController::class, 'all']);
         Route::patch('/accept/{reservation}', [ReservationController::class, 'accept']);
         Route::patch('/decline/{reservation}', [ReservationController::class, 'decline']);

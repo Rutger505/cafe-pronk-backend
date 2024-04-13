@@ -14,12 +14,14 @@ class User extends Model
 
     protected $table = 'users';
 
-    // TODO hide password but enable it to compare for logging in
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'email',
         'password',
         'is_admin'
+    ];
+
+    protected $hidden = [
+        'password'
     ];
 }
