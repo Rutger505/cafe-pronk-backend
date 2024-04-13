@@ -12,8 +12,11 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('auth')->group(function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
-    Route::get('logout', [AuthController::class, 'logout']);
     Route::get('check', [AuthController::class, 'check']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('logout', [AuthController::class, 'logout']);
+    });
 });
 
 

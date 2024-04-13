@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-
     public function register(Request $request): JsonResponse
     {
         $request->validate([
@@ -53,7 +52,8 @@ class AuthController extends Controller
 
     public function logout(Request $request): JsonResponse
     {
-        $request->user()->currentAccessToken()->delete();
+        $request->user('sanctum')->currentAccessToken()->delete();
+
 
         return response()->json(['message' => 'Logged out successfully']);
     }
@@ -71,5 +71,4 @@ class AuthController extends Controller
             'isAdmin' => $user->isAdmin() === true
         ]);
     }
-
 }
