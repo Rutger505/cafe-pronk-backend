@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ReservationsController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -40,5 +41,16 @@ Route::prefix('contact')->group(function () {
     Route::middleware(['auth:sanctum', 'adminOnly'])->group(function () {
         Route::get('/', [ContactController::class, 'index']);
         Route::delete('/{contactMessage}', [ContactController::class, 'delete']);
+    });
+});
+
+Route::prefix('reservations')->group(function () {
+    Route::post('/', [ReservationsController::class, 'store']);
+
+    Route::middleware(['auth:sanctum', 'adminOnly'])->group(function () {
+        Route::get('/', [ReservationsController::class, 'index']);
+        Route::patch('/accept/{reservation}', [ReservationsController::class, 'accept']);
+        Route::patch('/decline/{reservation}', [ReservationsController::class, 'decline']);
+        Route::delete('/{reservation}', [ReservationsController::class, 'delete']);
     });
 });
