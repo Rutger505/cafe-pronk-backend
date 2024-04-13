@@ -4,25 +4,39 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function create($name): JsonResponse
+    public function store(Request $request): JsonResponse
     {
+        $request->validate([
+            'name' => 'required|string'
+        ]);
+
         Category::create([
-            'name' => $name
+            'name' => $request->name
         ]);
 
         return response()->json(['message' => 'Category created successfully'], 201);
     }
 
-    public function delete(Category $category): JsonResponse
+    public function update(Category $category, Request $request): JsonResponse
     {
-        $category->delete();
+        $request->validate([
+            'name' => 'required|string'
+        ]);
 
-        return response()->json(['message' => 'Category deleted successfully']);
+        $category->update([
+            'name' => $request->name
+        ]);
+
+        return response()->json(['message' => 'Category updated successfully']);
     }
 
+    /**
+     * Swap the position index of two categories
+     */
     public function swap(Category $category1, Category $category2): JsonResponse
     {
         $temp = $category1->position_index;
@@ -36,12 +50,10 @@ class CategoryController extends Controller
         return response()->json(['message' => 'Categories swapped successfully']);
     }
 
-    public function update(Category $category, $name): JsonResponse
+    public function delete(Category $category): JsonResponse
     {
-        $category->update([
-            'name' => $name
-        ]);
+        $category->delete();
 
-        return response()->json(['message' => 'Category updated successfully']);
+        return response()->json(['message' => 'Category deleted successfully']);
     }
 }

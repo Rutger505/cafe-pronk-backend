@@ -2,29 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Dish;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class DishController extends Controller
 {
-    public function create(Category $category, $name, $description, $price)
+    public function store(Request $request): JsonResponse
     {
-        return Dish::create([
-            'category_id' => $category->id,
-            'name' => $name,
-            'description' => $description,
-            'price' => $price
+        $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required|numeric'
         ]);
+
+        Dish::create([
+            'category_id' => $request->category_id,
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price
+        ]);
+
+        return response()->json(['message' => 'Dish created successfully'], 201);
     }
 
-    public function delete(Dish $dish)
+    public function update(Dish $dish, Request $request): JsonResponse
     {
-        $dish->delete();
+        $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required|numeric'
+        ]);
 
-        return response()->json(['message' => 'Dish deleted successfully']);
+        $dish->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price
+        ]);
+
+        return response()->json(['message' => 'Dish updated successfully']);
     }
 
-    public function swap(Dish $dish1, Dish $dish2)
+    public function swap(Dish $dish1, Dish $dish2): JsonResponse
     {
         $temp = $dish1->position_index;
         $dish1->update([
@@ -37,14 +57,10 @@ class DishController extends Controller
         return response()->json(['message' => 'Dishes swapped successfully']);
     }
 
-    public function update(Dish $dish, $name, $description, $price)
+    public function delete(Dish $dish): JsonResponse
     {
-        $dish->update([
-            'name' => $name,
-            'description' => $description,
-            'price' => $price
-        ]);
+        $dish->delete();
 
-        return response()->json(['message' => 'Dish updated successfully']);
+        return response()->json(['message' => 'Dish deleted successfully']);
     }
 }

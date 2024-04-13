@@ -103,10 +103,10 @@ Controllers: AuthController
 
 These endpoints are all admin only
 
-| Endpoint      | Method | Description              |
-|---------------|--------|--------------------------|
-| /users        | GET    | Get all users            |
-| /admin/{user} | POST   | Promote a user to admin  |
-| /admin/{user} | DELETE | Demote a user from admin |
+| Endpoint      | Method | Description                |
+|---------------|--------|----------------------------|
+| /users        | GET    | Get all users              |
+| /admin/{user} | POST   | Promote a user to admin    |
+| /admin/{user} | DELETE | Demote a user from admin   |
 
 Controllers: AdminController
