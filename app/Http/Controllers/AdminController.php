@@ -7,8 +7,6 @@ use Illuminate\Http\JsonResponse;
 
 class AdminController extends Controller
 {
-
-
     public function promoteToAdmin(User $user): JsonResponse
     {
         $user->update([

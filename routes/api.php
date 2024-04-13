@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ReservationsController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -55,5 +57,15 @@ Route::prefix('reservations')->group(function () {
         Route::patch('/accept/{reservation}', [ReservationsController::class, 'accept']);
         Route::patch('/decline/{reservation}', [ReservationsController::class, 'decline']);
         Route::delete('/{reservation}', [ReservationsController::class, 'delete']);
+    });
+});
+
+Route::middleware(['auth:sanctum', 'adminOnly'])->group(function () {
+    Route::get('/users', [UserController::class, 'index']);
+
+
+    Route::prefix('admin')->group(function () {
+        Route::post('/{user}', [AdminController::class, 'promoteToAdmin']);
+        Route::delete('/{user}', [AdminController::class, 'demoteFromAdmin']);
     });
 });
