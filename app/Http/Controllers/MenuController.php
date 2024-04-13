@@ -8,10 +8,6 @@ class MenuController extends Controller
 {
     public function index()
     {
-        $categories = Category::with('dishes')->get();
-
-        return response()->json([
-            'categories' => $categories,
-        ]);
+        return Category::with('dishes')->get();
     }
 }
