@@ -3,26 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContactMessage;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    public function all()
+    public function index(): Collection
     {
         return ContactMessage::all();
     }
 
-    public function create($name, $businessName, $email, $subject, $message)
+    public function store(Request $request): ContactMessage
     {
+        $request->validate([
+            'name' => 'required|string',
+            'business_name' => 'nullable|string',
+            'email' => 'required|email',
+            'subject' => 'required|string',
+            'message' => 'required|string',
+        ]);
+
         return ContactMessage::create([
-            'name' => $name,
-            'business_name' => $businessName,
-            'email' => $email,
-            'subject' => $subject,
-            'message' => $message
+            'name' => $request->name,
+            'business_name' => $request->business_name,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'message' => $request->message,
         ]);
     }
 
-    public function delete(ContactMessage $contactMessage)
+    public function delete(ContactMessage $contactMessage): JsonResponse
     {
         $contactMessage->delete();
         return response()->json(['message' => 'Contact message deleted']);

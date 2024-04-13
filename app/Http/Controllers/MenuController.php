@@ -6,12 +6,8 @@ use App\Models\Category;
 
 class MenuController extends Controller
 {
-    public function all()
+    public function index()
     {
-        $categories = Category::with('dishes')->get();
-
-        return response()->json([
-            'categories' => $categories,
-        ]);
+        return Category::with('dishes')->get();
     }
 }
