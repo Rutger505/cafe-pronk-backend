@@ -56,35 +56,33 @@ erDiagram
 
 ### Menu
 
-| Endpoint                                          | Method | Description                            | Admin only |
-|---------------------------------------------------|--------|----------------------------------------|------------|
-| /menu                                             | GET    | Get all Categories                     | ❌          |
-| /menu/category/{name}                             | POST   | Add a category                         | ✔️         |
-| /menu/category/{category}/{name}                  | PUT    | Update a category                      | ✔️         |
-| /menu/category/{category}                         | DELETE | Delete a category                      | ✔️         |
-| /menu/category/swap/{category1}/{category2}       | PATCH  | Swap two categories from positionIndex | ✔️         |
-| /menu/dish/{category}/{name/{description}/{price} | POST   | Add a dish                             | ✔️         |
-| /menu/dish/{dish}/{name}/{description}/{price}    | PUT    | Update a dish                          | ✔️         |
-| /menu/dish/{dish}                                 | DELETE | Delete a dish                          | ✔️         |
-| /menu/dish/swap/{dish}/{dish}                     | PATCH  | Swap two dishes from positionIndex     | ✔️         |
+| Endpoint                                    | Method | Description                            | Admin only |
+|---------------------------------------------|--------|----------------------------------------|------------|
+| /menu                                       | GET    | Get all Categories                     | ❌          |
+| /menu/category                              | POST   | Add a category                         | ✔️         |
+| /menu/category/{category}                   | PUT    | Update a category                      | ✔️         |
+| /menu/category/{category}                   | DELETE | Delete a category                      | ✔️         |
+| /menu/category/swap/{category1}/{category2} | PATCH  | Swap two categories from positionIndex | ✔️         |
+| /menu/dish                                  | POST   | Add a dish                             | ✔️         |
+| /menu/dish/{dish}                           | PUT    | Update a dish                          | ✔️         |
+| /menu/dish/{dish}                           | DELETE | Delete a dish                          | ✔️         |
+| /menu/dish/swap/{dish}/{dish}               | PATCH  | Swap two dishes from positionIndex     | ✔️         |
 
 Controllers: CategoryController, DishController
 
 ### Contact and reservations
 
-These endpoints are for contact and reservations
+| Endpoint                            | Method | Description              | Admin only |
+|-------------------------------------|--------|--------------------------|------------|
+| /contact                            | GET    | Get all contact messages | ✔️         |
+| /contact                            | POST   | Send a contact message   | ❌          |
+| /contact/{contactMessage}           | DELETE | Delete a contact message | ✔️         |
+| /reservations                       | GET    | Get all reservations     | ✔️         |
+| /reservations                       | POST   | Make a reservation       | ❌          |
+| /reservations/accept/{reservation}  | PATCH  | Accept reservation       | ✔️         |
+| /reservations/decline/{reservation} | PATCH  | Decline reservation      | ✔️         |
 
-| Endpoint                                                   | Method | Description              | Admin only |
-|------------------------------------------------------------|--------|--------------------------|------------|
-| /contact                                                   | GET    | Get all contact messages | ✔️         |
-| /contact/{name}/{businessName}/{email}/{subject}/{message} | POST   | Send a contact message   | ❌          |
-| /contact/{contactMessage}                                  | DELETE | Delete a contact message | ✔️         |
-| /reservations                                              | GET    | Get all reservations     | ✔️         |
-| /reservations/{name}/{partySize}/{date}/{message}          | POST   | Make a reservation       | ❌          |
-| /reservations/accept/{reservation}                         | PATCH  | Accept reservation       | ✔️         |
-| /reservations/decline/{reservation}                        | PATCH  | Decline reservation      | ✔️         |
-
-Controllers: ContactController, ReservationController
+Controllers: ContactController, ReservationsController
 
 ### Account
 
