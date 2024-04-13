@@ -18,7 +18,7 @@ class AdminOnly
         $user = $request->user();
 
         if (!$user || !$user->isAdmin()) {
-            return response('Unauthorized.', 401);
+            return response()->json(['message' => 'Unauthorized'], 401);
         }
 
         return $next($request);
