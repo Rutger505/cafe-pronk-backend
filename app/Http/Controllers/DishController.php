@@ -17,14 +17,12 @@ class DishController extends Controller
             'price' => 'required|numeric'
         ]);
 
-        Dish::create([
+        return Dish::create([
             'category_id' => $request->category_id,
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price
         ]);
-
-        return response()->json(['message' => 'Dish created successfully'], 201);
     }
 
     public function update(Dish $dish, Request $request): JsonResponse
