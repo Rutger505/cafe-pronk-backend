@@ -24,4 +24,9 @@ class User extends Model
     protected $hidden = [
         'password'
     ];
+
+    public function isAdmin(): bool
+    {
+        return $this->is_admin === 1;
+    }
 }
