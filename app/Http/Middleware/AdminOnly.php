@@ -15,7 +15,7 @@ class AdminOnly
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = $request->user();
+        $user = auth('sanctum')->user();
 
         if (!$user || !$user->isAdmin()) {
             return response()->json(['message' => 'Unauthorized'], 401);

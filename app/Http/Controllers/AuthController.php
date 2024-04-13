@@ -60,10 +60,16 @@ class AuthController extends Controller
 
     public function check(Request $request): JsonResponse
     {
-        if (!auth('sanctum')->check()) {
+        $user = auth('sanctum')->user();
+
+        if (!$user) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
-        return response()->json(['message' => 'Authorized']);
+        return response()->json([
+            'message' => 'Authorized',
+            'isAdmin' => $user->isAdmin() === true
+        ]);
     }
+
 }
