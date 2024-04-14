@@ -113,7 +113,7 @@ Controllers: ContactController
 | /reservations/accept/{reservation}  | PATCH  | Accept reservation       | Admin️         |
 | /reservations/decline/{reservation} | PATCH  | Decline reservation      | Admin️         |
 
-Controllers: ReservationController
+Controllers: ReservationsController
 
 ### Authentication
 
