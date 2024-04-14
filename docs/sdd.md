@@ -26,6 +26,7 @@ erDiagram
         string business_name "nullable"
         string email
         string message
+        datetime created_at
     }
 
     Reservation {
@@ -34,9 +35,9 @@ erDiagram
         string name
         int party_size
         string message "nullable"
-        datetime datetime
         bool pending "true"
         bool accepted "false"
+        datetime created_at
     }
     
     Order {
@@ -44,8 +45,8 @@ erDiagram
         int user_id
         Dish[] dishes_ordered
         float total_price
-        datetime datetime
         datetime delivery_time
+        datetime created_at
     }
 
     Category {
