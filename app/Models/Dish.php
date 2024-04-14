@@ -30,4 +30,9 @@ class Dish extends Model
             $category->position_index = static::max('position_index') + 1;
         });
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

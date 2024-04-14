@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Category;
+use Illuminate\Database\Seeder;
 
 class CategoriesSeeder extends Seeder
 {
@@ -14,16 +14,11 @@ class CategoriesSeeder extends Seeder
      */
     public function run()
     {
-        // Define dummy data for categories
         $categories = [
-            [
-                'name' => 'Category 1',
-                'position_index' => 1],
-            [
-                'name' => 'Category 2',
-                'position_index' => 2
-            ],
-            // Add more categories as needed
+            ['name' => 'Starters'],
+            ['name' => 'Main Courses'],
+            ['name' => 'Desserts'],
+            ['name' => 'Drinks'],
         ];
 
         // Seed categories table with dummy data

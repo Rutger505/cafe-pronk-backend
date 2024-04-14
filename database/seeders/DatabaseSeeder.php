@@ -15,8 +15,10 @@ class DatabaseSeeder extends Seeder
             [
                 CategoriesSeeder::class,
                 DishesSeeder::class,
-                ReservationsSeeder::class,
+                UsersSeeder::class,
                 ContactMessagesSeeder::class,
+                ReservationsSeeder::class,
+                OrdersSeeder::class,
             ]
         );
     }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\ContactMessage;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class ContactMessagesSeeder extends Seeder
@@ -14,32 +15,29 @@ class ContactMessagesSeeder extends Seeder
      */
     public function run()
     {
-        // Define dummy data for contact messages
         $messages = [
             [
-                'name' => 'John Doe',
-                'business_name' => 'ABC Company',
-                'email' => 'john@example.com',
-                'subject' => 'Test Message',
-                'message' => 'This is a test message from John Doe.',
+                'name' => 'Bob',
+                'business_name' => 'Bob\'s Burgers',
+                'email' => 'bob@email.com',
+                'subject' => 'Question about the menu',
+                'message' => 'Hi, I have a question about the menu. Are there going to be vegan options available?'
             ],
             [
-                'name' => 'Jane Smith',
-                'business_name' => null,
-                'email' => 'jane@example.com',
-                'subject' => 'Test Message',
-                'message' => 'This is another test message from Jane Smith.',
+                'name' => 'Alice',
+                'email' => 'alice@email.com',
+                'subject' => 'Feedback',
+                'message' => 'Hi, I just wanted to say that I really enjoyed the food. Keep up the good work!'
             ],
             [
-                'name' => 'Alice Johnson',
-                'business_name' => 'XYZ Corporation',
-                'email' => 'example@mail.com',
-                'subject' => 'Test Message',
-                'message' => 'This is a sample message from Alice Johnson.',
+                'user_id' => User::where('email', 'user@email.com')->first()->id,
+                'name' => 'User',
+                'email' => 'user@email.com',
+                'subject' => 'Question about reservation',
+                'message' => 'Hi, I have a question about the reservation process. How do I make a reservation?'
             ]
         ];
 
-        // Seed contact_messages table with dummy data
         foreach ($messages as $messageData) {
             ContactMessage::create($messageData);
         }

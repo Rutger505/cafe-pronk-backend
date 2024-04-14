@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReservationsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,14 @@ Route::prefix('menu')->group(function () {
     });
 });
 
+Route::prefix('orders')->middleware('auth:sanctum')->group(function () {
+    Route::post('/', [OrderController::class, 'store']);
+
+    Route::middleware('adminOnly')->group(function () {
+        Route::get('/', [OrderController::class, 'index']);
+    });
+});
+
 Route::prefix('contact')->group(function () {
     Route::post('/', [ContactController::class, 'store']);
 
@@ -59,6 +68,18 @@ Route::prefix('reservations')->group(function () {
         Route::delete('/{reservation}', [ReservationsController::class, 'delete']);
     });
 });
+
+Route::prefix('user')->middleware('auth:sanctum')->group(function () {
+    Route::get('', [UserController::class, 'show']);
+    Route::get('/orders', [UserController::class, 'orders']);
+    Route::get('/reservations', [UserController::class, 'reservations']);
+    Route::get('/contact', [UserController::class, 'contactMessages']);
+    Route::patch('/name', [UserController::class, 'changeName']);
+    Route::patch('/email', [UserController::class, 'changeEmail']);
+    Route::patch('/password', [UserController::class, 'changePassword']);
+    Route::delete('/delete', [UserController::class, 'delete']);
+});
+
 
 Route::middleware(['auth:sanctum', 'adminOnly'])->group(function () {
     Route::get('/users', [UserController::class, 'index']);

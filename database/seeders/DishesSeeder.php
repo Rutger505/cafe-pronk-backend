@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
 use App\Models\Dish;
 use Illuminate\Database\Seeder;
 
@@ -15,57 +14,21 @@ class DishesSeeder extends Seeder
      */
     public function run()
     {
-        // Get category IDs for association
-        $categoryIds = Category::pluck('id')->toArray();
-
-
-        // Define dummy data for dishes
         $dishes = [
-            [
-                'category_id' => $categoryIds[rand(0, count($categoryIds) - 1)],
-                'name' => 'Dish 1',
-                'description' => 'Description for Dish 1',
-                'price' => 9.99,
-                'position_index' => '1',
-            ],
-            [
-                'category_id' => $categoryIds[rand(0, count($categoryIds) - 1)],
-                'name' => 'Dish 2',
-                'description' => 'Description for Dish 2',
-                'price' => 12.99,
-                'position_index' => '2',
-            ],
-            [
-                'category_id' => $categoryIds[rand(0, count($categoryIds) - 1)],
-                'name' => 'Dish 3',
-                'description' => 'Description for Dish 3',
-                'price' => 14.99,
-                'position_index' => '3',
-            ],
-            [
-                'category_id' => $categoryIds[rand(0, count($categoryIds) - 1)],
-                'name' => 'Dish 4',
-                'description' => 'Description for Dish 4',
-                'price' => 10.99,
-                'position_index' => '4',
-            ],
-            [
-                'category_id' => $categoryIds[rand(0, count($categoryIds) - 1)],
-                'name' => 'Dish 5',
-                'description' => 'Description for Dish 5',
-                'price' => 11.99,
-                'position_index' => '5',
-            ],
-            [
-                'category_id' => $categoryIds[rand(0, count($categoryIds) - 1)],
-                'name' => 'Dish 6',
-                'description' => 'Description for Dish 6',
-                'price' => 13.99,
-                'position_index' => '6',
-            ],
+            ['name' => 'Bitterballen', 'price' => 5.50, 'category_id' => 1, 'description' => 'Een heerlijke Nederlandse snack. Wordt geserveerd met mosterd.'],
+            ['name' => 'Brood plank', 'price' => 6.50, 'category_id' => 1, 'description' => 'Een assortiment van vers brood geserveerd met verschillende dips en spreads, perfect als voorgerecht.'],
+            ['name' => 'Pizza margherita', 'price' => 8.50, 'category_id' => 2, 'description' => 'Een klassieke Italiaanse pizza met tomatensaus, mozzarella en verse basilicum.'],
+            ['name' => 'Steak', 'price' => 12.50, 'category_id' => 2, 'description' => 'Een sappige biefstuk gegrild tot in de perfectie, geserveerd met aardappelen en groenten.'],
+            ['name' => 'Spareribs', 'price' => 12.50, 'category_id' => 2, 'description' => 'Gemarineerde varkensribbetjes gegrild tot ze lekker mals zijn, met een smaakvolle barbecuesaus.'],
+            ['name' => 'Appeltaart', 'price' => 4.50, 'category_id' => 3, 'description' => 'Een traditioneel Nederlands dessert gemaakt van verse appels, kaneel en een knapperige korst. Heerlijk met een bolletje vanille-ijs.'],
+            ['name' => 'Tiramisu', 'price' => 5.50, 'category_id' => 3, 'description' => 'Een klassiek Italiaans dessert met lagen mascarponecrème, espresso gedrenkte lange vingers en cacaopoeder.'],
+            ['name' => 'Dame blanche', 'price' => 6.50, 'category_id' => 3, 'description' => 'Een eenvoudig maar heerlijk dessert bestaande uit vanille-ijs overgoten met warme chocoladesaus en gegarneerd met slagroom.'],
+            ['name' => 'Cola', 'price' => 2.50, 'category_id' => 4, 'description' => 'Een verfrissend koolzuurhoudend frisdrank met een kenmerkende cola-smaak.'],
+            ['name' => 'Fanta', 'price' => 2.50, 'category_id' => 4, 'description' => 'Een fruitige en verfrissende frisdrank met een hint van sinaasappelaroma.'],
+            ['name' => 'Sprite', 'price' => 2.50, 'category_id' => 4, 'description' => 'Een sprankelende citroen-limoen frisdrank die verfrissend en dorstlessend is.'],
+            ['name' => 'Water', 'price' => 1.50, 'category_id' => 4, 'description' => 'Helder en puur drinkwater, perfect om je dorst te lessen.'],
         ];
 
-        // Seed dishes table with dummy data
         foreach ($dishes as $dishData) {
             Dish::create($dishData);
         }

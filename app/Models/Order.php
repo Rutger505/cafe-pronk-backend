@@ -5,22 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ContactMessage extends Model
+class Order extends Model
 {
     use HasFactory;
 
-    protected $table = 'contact_messages';
+    protected $table = 'orders';
 
     protected $fillable = [
-        'name',
-        'business_name',
-        'email',
-        'subject',
-        'message'
+        'user_id',
+        'total_price',
+        'delivery_date',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function dishes()
+    {
+        return $this->hasMany(DishOrder::class)->with('dish');
     }
 }

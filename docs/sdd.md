@@ -9,15 +9,14 @@ erDiagram
     User {
         int id
         string email
-        string firstName
-        string lastName
+        string name
         string password
         bool is_admin "false"
     }
     
-    User ||--o{ ContactMessage: contains
-    User ||--|{ Reservation: contains
-    User ||--|{ Order: contains
+    User |o--o{ ContactMessage: contains
+    User ||--o{ Reservation: contains
+    User ||--o{ Order: contains
 
     ContactMessage {
         int id
@@ -25,27 +24,37 @@ erDiagram
         string name
         string business_name "nullable"
         string email
+        string subject
         string message
+        datetime created_at
     }
 
     Reservation {
         int id
         int user_id 
-        string name
-        int party_size
+        int people
+        datetime date
         string message "nullable"
-        datetime datetime
         bool pending "true"
         bool accepted "false"
+        datetime created_at
     }
     
     Order {
         int id
         int user_id
-        Dish[] dishes_ordered
         float total_price
-        datetime datetime
-        datetime delivery_time
+        datetime created_at
+    }
+    
+    Order ||--|{ DishOrder: contains
+    Dish ||--|{ DishOrder: contains
+    
+    DishOrder {
+        int id
+        int order_id
+        int dish_id
+        int quantity
     }
 
     Category {
@@ -90,7 +99,7 @@ Controllers: MenuController, CategoryController, DishController
 | Endpoint | Method | Description    | Required roles |
 |----------|--------|----------------|----------------|
 | /orders  | POST   | Make a order   | Customer       |
-| /orders  | GET    | Get all orders | Admin️         |
+| /orders  | GET    | Get all orders | Admin          |
 
 Controllers: OrderController
 
@@ -113,7 +122,7 @@ Controllers: ContactController
 | /reservations/accept/{reservation}  | PATCH  | Accept reservation       | Admin️         |
 | /reservations/decline/{reservation} | PATCH  | Decline reservation      | Admin️         |
 
-Controllers: ReservationController
+Controllers: ReservationsController
 
 ### Authentication
 
