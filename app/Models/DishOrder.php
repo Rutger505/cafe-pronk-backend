@@ -16,4 +16,14 @@ class DishOrder extends Model
         'dish_id',
         'quantity',
     ];
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    public function dish()
+    {
+        return $this->belongsTo(Dish::class);
+    }
 }

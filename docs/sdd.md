@@ -43,9 +43,19 @@ erDiagram
     Order {
         int id
         int user_id
-        Dish[] dishes_ordered
+        DishOrder[] dishes_ordered
         float total_price
         datetime created_at
+    }
+    
+    Order ||--|{ DishOrder: contains
+    Dish ||--|{ DishOrder: contains
+    
+    DishOrder {
+        int id
+        int order_id
+        int dish_id
+        int quantity
     }
 
     Category {
