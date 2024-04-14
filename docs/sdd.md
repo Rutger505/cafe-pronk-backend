@@ -1,4 +1,4 @@
-# Thuisbezorgd software design document
+# Software design document
 
 ## Database design
 
@@ -6,13 +6,46 @@ position_index is used to order the items in the frontend.
 
 ```mermaid
 erDiagram
-    Dish {
+    User {
         int id
-        int category_id
+        string email
+        string firstName
+        string lastName
+        string password
+        bool is_admin "false"
+    }
+    
+    User ||--o{ ContactMessage: contains
+    User ||--|{ Reservation: contains
+    User ||--|{ Order: contains
+
+    ContactMessage {
+        int id
+        string user_id "nullable"
         string name
-        string description
-        float price
-        int position_index "AI"
+        string business_name "nullable"
+        string email
+        string message
+    }
+
+    Reservation {
+        int id
+        int user_id 
+        string name
+        int party_size
+        string message "nullable"
+        datetime datetime
+        bool pending "true"
+        bool accepted "false"
+    }
+    
+    Order {
+        int id
+        int user_id
+        Dish[] dishes_ordered
+        float total_price
+        datetime datetime
+        datetime delivery_time
     }
 
     Category {
@@ -23,32 +56,14 @@ erDiagram
     }
 
     Category ||--|{ Dish: contains
-
-    Reservation {
+ 
+    Dish {
         int id
+        int category_id
         string name
-        int party_size
-        string message "nullable"
-        datetime datetime
-        bool pending "true"
-        bool accepted "false"
-    }
-
-    ContactMessage {
-        int id
-        string name
-        string business_name "nullable"
-        string email
-        string message
-    }
-
-    User {
-        int id
-        string email
-        string firstName
-        string lastName
-        string password
-        bool is_admin "false"
+        string description
+        float price
+        int position_index "AI"
     }
 ```
 
@@ -56,55 +71,86 @@ erDiagram
 
 ### Menu
 
-| Endpoint                                    | Method | Description                            | Admin only |
-|---------------------------------------------|--------|----------------------------------------|------------|
-| /menu                                       | GET    | Get all Categories                     | ❌          |
-| /menu/category                              | POST   | Add a category                         | ✔️         |
-| /menu/category/{category}                   | PUT    | Update a category                      | ✔️         |
-| /menu/category/{category}                   | DELETE | Delete a category                      | ✔️         |
-| /menu/category/swap/{category1}/{category2} | PATCH  | Swap two categories from positionIndex | ✔️         |
-| /menu/dish                                  | POST   | Add a dish                             | ✔️         |
-| /menu/dish/{dish}                           | PUT    | Update a dish                          | ✔️         |
-| /menu/dish/{dish}                           | DELETE | Delete a dish                          | ✔️         |
-| /menu/dish/swap/{dish}/{dish}               | PATCH  | Swap two dishes from positionIndex     | ✔️         |
+| Endpoint                                    | Method | Description                             | Required roles |
+|---------------------------------------------|--------|-----------------------------------------|----------------|
+| /menu                                       | GET    | Get all Categories                      | Public         |
+| /menu/category                              | POST   | Add a category                          | Admin️         |
+| /menu/category/{category}                   | PUT    | Update a category                       | Admin️         |
+| /menu/category/{category}                   | DELETE | Delete a category                       | Admin️         |
+| /menu/category/swap/{category1}/{category2} | PATCH  | Swap two categories from position_index | Admin️         |
+| /menu/dish                                  | POST   | Add a dish                              | Admin️         |
+| /menu/dish/{dish}                           | PUT    | Update a dish                           | Admin️         |
+| /menu/dish/{dish}                           | DELETE | Delete a dish                           | Admin️         |
+| /menu/dish/swap/{dish}/{dish}               | PATCH  | Swap two dishes from position_index     | Admin️         |
 
-Controllers: CategoryController, DishController
+Controllers: MenuController, CategoryController, DishController
 
-### Contact and reservations
+### Orders
 
-| Endpoint                            | Method | Description              | Admin only |
-|-------------------------------------|--------|--------------------------|------------|
-| /contact                            | GET    | Get all contact messages | ✔️         |
-| /contact                            | POST   | Send a contact message   | ❌          |
-| /contact/{contactMessage}           | DELETE | Delete a contact message | ✔️         |
-| /reservations                       | GET    | Get all reservations     | ✔️         |
-| /reservations                       | POST   | Make a reservation       | ❌          |
-| /reservations/accept/{reservation}  | PATCH  | Accept reservation       | ✔️         |
-| /reservations/decline/{reservation} | PATCH  | Decline reservation      | ✔️         |
+| Endpoint | Method | Description    | Required roles |
+|----------|--------|----------------|----------------|
+| /orders  | POST   | Make a order   | Customer       |
+| /orders  | GET    | Get all orders | Admin️         |
 
-Controllers: ContactController, ReservationsController
+Controllers: OrderController
 
-### Account
+### Contact Endpoints
+
+| Endpoint                            | Method | Description              | Required Roles |
+|-------------------------------------|--------|--------------------------|----------------|
+| /contact                            | GET    | Get all contact messages | Admin️         |
+| /contact                            | POST   | Send a contact message   | Public         |
+| /contact/{contactMessage}           | DELETE | Delete a contact message | Admin️         |
+
+Controllers: ContactController
+
+### Reservations Endpoints
+
+| Endpoint                            | Method | Description              | Required Roles |
+|-------------------------------------|--------|--------------------------|----------------|
+| /reservations                       | GET    | Get all reservations     | Admin️         |
+| /reservations                       | POST   | Make a reservation       | Public         |
+| /reservations/accept/{reservation}  | PATCH  | Accept reservation       | Admin️         |
+| /reservations/decline/{reservation} | PATCH  | Decline reservation      | Admin️         |
+
+Controllers: ReservationController
+
+### Authentication
 
 All public endpoints
 
-| Endpoint       | Method | Description               |
-|----------------|--------|---------------------------|
-| /auth/register | POST   | Create a account          |
-| /auth/login    | GET    | Login as a admin          |
-| /auth/logout   | GET    | Logout                    |
-| /auth/check    | GET    | Check if a token is valid |
+| Endpoint       | Method | Description                                    | Required roles |
+|----------------|--------|------------------------------------------------|----------------|
+| /auth/register | POST   | Create a account                               | Public         |
+| /auth/login    | GET    | Login                                          | Public         |
+| /auth/check    | GET    | Check if a token is valid and if user is admin | Public         |
+| /auth/logout   | GET    | Logout                                         | Customer       |
 
 Controllers: AuthController
+
+### User data
+
+| Endpoint           | Method | Description                    | Required roles |
+|--------------------|--------|--------------------------------|----------------|
+| /user              | GET    | Get user name, email, is_admin | Customer       |
+| /user/orders       | GET    | Get all orders                 | Customer       |
+| /user/reservations | GET    | Get all reservations           | Customer       |
+| /user/contact      | GET    | Get all contact messages       | Customer       |
+| /user/name         | PATCH  | Change name                    | Customer       |
+| /user/email        | PATCH  | Change email                   | Customer       |
+| /user/password     | PATCH  | Change password                | Customer       |
+| /user/delete       | DELETE | Delete account                 | Customer       |
+
+Controllers: UserController
 
 ### Manage Admins
 
 These endpoints are all admin only
 
-| Endpoint      | Method | Description                |
-|---------------|--------|----------------------------|
-| /users        | GET    | Get all users              |
-| /admin/{user} | POST   | Promote a user to admin    |
-| /admin/{user} | DELETE | Demote a user from admin   |
+| Endpoint      | Method | Description              | Required roles |
+|---------------|--------|--------------------------|----------------|
+| /users        | GET    | Get all users            | Admin          |
+| /admin/{user} | POST   | Promote a user to admin  | Admin          |
+| /admin/{user} | DELETE | Demote a user from admin | Admin          |
 
 Controllers: AdminController
