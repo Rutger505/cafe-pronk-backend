@@ -15,7 +15,7 @@ class DishesSeeder extends Seeder
     public function run()
     {
         $dishes = [
-            ['name' => 'Bitterballen', 'price' => 5.50, 'category_id' => 1, 'description' => 'Een heerlijke Nederlandse snackm. Wordt geserveerd met mosterd.'],
+            ['name' => 'Bitterballen', 'price' => 5.50, 'category_id' => 1, 'description' => 'Een heerlijke Nederlandse snack. Wordt geserveerd met mosterd.'],
             ['name' => 'Brood plank', 'price' => 6.50, 'category_id' => 1, 'description' => 'Een assortiment van vers brood geserveerd met verschillende dips en spreads, perfect als voorgerecht.'],
             ['name' => 'Pizza margherita', 'price' => 8.50, 'category_id' => 2, 'description' => 'Een klassieke Italiaanse pizza met tomatensaus, mozzarella en verse basilicum.'],
             ['name' => 'Steak', 'price' => 12.50, 'category_id' => 2, 'description' => 'Een sappige biefstuk gegrild tot in de perfectie, geserveerd met aardappelen en groenten.'],
