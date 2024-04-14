@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Reservation;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class ReservationsSeeder extends Seeder
@@ -14,28 +15,21 @@ class ReservationsSeeder extends Seeder
      */
     public function run()
     {
-        // Define dummy data for reservations
         $reservations = [
             [
-                'name' => 'John Doe',
-                'party_size' => 4,
-                'datetime' => '2024-04-15 18:00:00',
-                'message' => 'Special occasion',
-                'pending' => true,
-                'accepted' => false,
+                'user_id' => User::where('email', 'user@email.com')->first()->id,
+                'people' => 2,
+                'date' => '2024-04-15 18:00',
+                'message' => null,
             ],
             [
-                'name' => 'Jane Smith',
-                'party_size' => 2,
-                'datetime' => '2024-04-20 19:30:00',
-                'message' => 'Birthday dinner',
-                'pending' => true,
-                'accepted' => false,
+                'user_id' => User::where('email', 'user@email.com')->first()->id,
+                'people' => 4,
+                'date' => '2024-04-16 19:00',
+                'message' => 'We are celebrating a birthday!'
             ],
-            // Add more reservations as needed
         ];
 
-        // Seed reservations table with dummy data
         foreach ($reservations as $reservationData) {
             Reservation::create($reservationData);
         }

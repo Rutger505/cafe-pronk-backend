@@ -32,8 +32,8 @@ erDiagram
     Reservation {
         int id
         int user_id 
-        string name
-        int party_size
+        int people
+        datetime date
         string message "nullable"
         bool pending "true"
         bool accepted "false"
@@ -45,7 +45,6 @@ erDiagram
         int user_id
         Dish[] dishes_ordered
         float total_price
-        datetime delivery_time
         datetime created_at
     }
 
