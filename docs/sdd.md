@@ -15,9 +15,9 @@ erDiagram
         bool is_admin "false"
     }
     
-    User ||--o{ ContactMessage: contains
-    User ||--|{ Reservation: contains
-    User ||--|{ Order: contains
+    User |o--o{ ContactMessage: contains
+    User ||--o{ Reservation: contains
+    User ||--o{ Order: contains
 
     ContactMessage {
         int id
