@@ -43,7 +43,6 @@ erDiagram
     Order {
         int id
         int user_id
-        DishOrder[] dishes_ordered
         float total_price
         datetime created_at
     }
@@ -100,7 +99,7 @@ Controllers: MenuController, CategoryController, DishController
 | Endpoint | Method | Description    | Required roles |
 |----------|--------|----------------|----------------|
 | /orders  | POST   | Make a order   | Customer       |
-| /orders  | GET    | Get all orders | Admin️         |
+| /orders  | GET    | Get all orders | Admin          |
 
 Controllers: OrderController
 
