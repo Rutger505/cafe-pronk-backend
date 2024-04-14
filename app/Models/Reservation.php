@@ -20,4 +20,9 @@ class Reservation extends Model
         'accepted',
         'pending',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

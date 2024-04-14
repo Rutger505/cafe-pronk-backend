@@ -29,4 +29,19 @@ class User extends Model
     {
         return $this->is_admin === 1;
     }
+    
+    public function contactMessages()
+    {
+        return $this->hasMany(ContactMessage::class);
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

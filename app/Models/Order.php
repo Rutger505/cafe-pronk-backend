@@ -16,4 +16,9 @@ class Order extends Model
         'total_price',
         'delivery_date',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
