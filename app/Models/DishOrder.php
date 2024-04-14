@@ -9,6 +9,8 @@ class DishOrder extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $table = 'dish_order';
 
     protected $fillable = [
