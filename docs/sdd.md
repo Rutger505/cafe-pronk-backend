@@ -24,6 +24,7 @@ erDiagram
         string name
         string business_name "nullable"
         string email
+        string subject
         string message
         datetime created_at
     }
