@@ -60,6 +60,20 @@ Route::prefix('reservations')->group(function () {
     });
 });
 
+
+
+Route::prefix('user')->middleware('auth:sanctum')->group(function () {
+    Route::get('', [UserController::class, 'show']);
+    Route::get('/orders', [UserController::class, 'orders']);
+    Route::get('/reservations', [UserController::class, 'reservations']);
+    Route::get('/contact', [UserController::class, 'contactMessages']);
+    Route::patch('/name', [UserController::class, 'changeName']);
+    Route::patch('/email', [UserController::class, 'changeEmail']);
+    Route::patch('/password', [UserController::class, 'changePassword']);
+    Route::delete('/delete', [UserController::class, 'delete']);
+});
+
+
 Route::middleware(['auth:sanctum', 'adminOnly'])->group(function () {
     Route::get('/users', [UserController::class, 'index']);
 

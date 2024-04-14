@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Model
@@ -29,19 +30,19 @@ class User extends Model
     {
         return $this->is_admin === 1;
     }
-    
-    public function contactMessages()
+
+    public function contactMessages(): HasMany
     {
         return $this->hasMany(ContactMessage::class);
     }
 
-    public function reservations()
+    public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);
     }
 
-    public function orders()
+    public function orders(): HasMany
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Order::class)->with('dishes');
     }
 }
