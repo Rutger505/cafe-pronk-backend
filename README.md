@@ -1,4 +1,4 @@
-# thuisbezorgd-backend
+# cafe-pronk-backend
 
 School project, making Takeaway's (Thuisbezorgd in Dutch). Backend in Laravel, [Frontend](https://github.com/Rutger505/thuisbezorgd-frontend) in Next.js
 
