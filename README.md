@@ -1,6 +1,6 @@
 # cafe-pronk-backend
 
-School project, making Takeaway's (Thuisbezorgd in Dutch). Backend in Laravel, [Frontend](https://github.com/Rutger505/thuisbezorgd-frontend) in Next.js
+School project, making a cafe. Backend in Laravel, [Frontend](https://github.com/Rutger505/cafe-pronk-frontend) in Next.js
 
 ## Installation
 
