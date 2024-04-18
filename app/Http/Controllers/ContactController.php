@@ -24,7 +24,10 @@ class ContactController extends Controller
             'message' => 'required|string',
         ]);
 
+        $user = $request->user("sanctum");
+
         return ContactMessage::create([
+            'user_id' => $user ? $user->id : null,
             'name' => $request->name,
             'business_name' => $request->business_name,
             'email' => $request->email,
