@@ -67,7 +67,9 @@ Route::prefix('contact')->group(function () {
 });
 
 Route::prefix('reservations')->group(function () {
-    Route::post('/', [ReservationsController::class, 'store']);
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/', [ReservationsController::class, 'store']);
+    });
 
     Route::middleware(['auth:sanctum', 'adminOnly'])->group(function () {
         Route::get('/', [ReservationsController::class, 'index']);

@@ -18,14 +18,16 @@ class ReservationsSeeder extends Seeder
         $reservations = [
             [
                 'user_id' => User::where('email', 'user@email.com')->first()->id,
-                'people' => 2,
-                'date' => '2024-04-15 18:00',
+                'name' => 'John Doe',
+                'party_size' => 2,
+                'datetime' => '2024-04-15 18:00',
                 'message' => null,
             ],
             [
                 'user_id' => User::where('email', 'user@email.com')->first()->id,
-                'people' => 4,
-                'date' => '2024-04-16 19:00',
+                'name' => 'Jane Doe',
+                'party_size' => 4,
+                'datetime' => '2024-04-16 19:00',
                 'message' => 'We are celebrating a birthday!'
             ],
         ];

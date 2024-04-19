@@ -13,8 +13,9 @@ return new class extends Migration {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->integer('people');
-            $table->datetime('date');
+            $table->string('name');
+            $table->integer('party_size');
+            $table->datetime('datetime');
             $table->text('message')->nullable();
             $table->boolean('pending')->default(true);
             $table->boolean('accepted')->default(false);

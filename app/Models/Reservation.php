@@ -12,6 +12,7 @@ class Reservation extends Model
     protected $table = 'reservations';
 
     protected $fillable = [
+        'user_id',
         'name',
         'party_size',
         'datetime',
