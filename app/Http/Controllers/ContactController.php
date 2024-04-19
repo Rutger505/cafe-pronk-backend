@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactMessage;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -34,11 +33,5 @@ class ContactController extends Controller
             'subject' => $request->subject,
             'message' => $request->message,
         ]);
-    }
-
-    public function delete(ContactMessage $contactMessage): JsonResponse
-    {
-        $contactMessage->delete();
-        return response()->json(['message' => 'Contact message deleted']);
     }
 }

@@ -47,10 +47,4 @@ class ReservationsController extends Controller
         ]);
         return response()->json(['message' => 'Reservation declined']);
     }
-
-    public function delete(Reservation $reservation): JsonResponse
-    {
-        $reservation->delete();
-        return response()->json(['message' => 'Reservation deleted']);
-    }
 }

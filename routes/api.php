@@ -54,7 +54,6 @@ Route::prefix('contact')->group(function () {
 
     Route::middleware(['auth:sanctum', 'adminOnly'])->group(function () {
         Route::get('/', [ContactController::class, 'index']);
-        Route::delete('/{contactMessage}', [ContactController::class, 'delete']);
     });
 });
 
@@ -65,7 +64,6 @@ Route::prefix('reservations')->group(function () {
         Route::get('/', [ReservationsController::class, 'index']);
         Route::patch('/accept/{reservation}', [ReservationsController::class, 'accept']);
         Route::patch('/decline/{reservation}', [ReservationsController::class, 'decline']);
-        Route::delete('/{reservation}', [ReservationsController::class, 'delete']);
     });
 });
 
@@ -77,7 +75,6 @@ Route::prefix('user')->middleware('auth:sanctum')->group(function () {
     Route::patch('/name', [UserController::class, 'changeName']);
     Route::patch('/email', [UserController::class, 'changeEmail']);
     Route::patch('/password', [UserController::class, 'changePassword']);
-    Route::delete('/delete', [UserController::class, 'delete']);
 });
 
 
