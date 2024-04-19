@@ -16,7 +16,8 @@ class ContactMessage extends Model
         'business_name',
         'email',
         'subject',
-        'message'
+        'message',
+        'read',
     ];
 
     public function user()

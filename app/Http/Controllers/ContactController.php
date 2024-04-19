@@ -34,4 +34,20 @@ class ContactController extends Controller
             'message' => $request->message,
         ]);
     }
+
+    public function markAsRead(ContactMessage $message): ContactMessage
+    {
+        $message->Update([
+            'read' => true,
+        ]);
+        return $message;
+    }
+
+    public function markAsUnRead(ContactMessage $message): ContactMessage
+    {
+        $message->Update([
+            'read' => false,
+        ]);
+        return $message;
+    }
 }

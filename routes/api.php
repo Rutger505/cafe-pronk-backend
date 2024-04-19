@@ -62,6 +62,8 @@ Route::prefix('contact')->group(function () {
 
     Route::middleware(['auth:sanctum', 'adminOnly'])->group(function () {
         Route::get('/', [ContactController::class, 'index']);
+        Route::patch('/read/{contact}', [ContactController::class, 'markAsRead']);
+        Route::patch('/unread/{contact}', [ContactController::class, 'markAsUnRead']);
     });
 });
 
