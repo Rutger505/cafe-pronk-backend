@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class DishController extends Controller
 {
+    public function show(Dish $dish): Dish
+    {
+        return $dish;
+    }
+
     public function store(Request $request): JsonResponse
     {
         $request->validate([

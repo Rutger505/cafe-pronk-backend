@@ -26,18 +26,26 @@ Route::prefix('auth')->group(function () {
 Route::prefix('menu')->group(function () {
     Route::get('/', [MenuController::class, 'index']);
 
-    Route::group(['prefix' => 'category', 'middleware' => ['auth:sanctum', 'adminOnly']], function () {
-        Route::post('/', [CategoryController::class, 'store']);
-        Route::put('/{category}/', [CategoryController::class, 'update']);
-        Route::delete('/{category}', [CategoryController::class, 'delete']);
-        Route::patch('/swap/{category1}/{category2}', [CategoryController::class, 'swap']);
+    Route::prefix("category")->group(function () {
+        Route::get('/{category}', [CategoryController::class, 'show']);
+
+        Route::middleware(['auth:sanctum', 'adminOnly'])->group(function () {
+            Route::post('/', [CategoryController::class, 'store']);
+            Route::put('/{category}/', [CategoryController::class, 'update']);
+            Route::delete('/{category}', [CategoryController::class, 'delete']);
+            Route::patch('/swap/{category1}/{category2}', [CategoryController::class, 'swap']);
+        });
     });
 
-    Route::group(['prefix' => 'dish', 'middleware' => ['auth:sanctum', 'adminOnly']], function () {
-        Route::post('/', [DishController::class, 'store']);
-        Route::put('/{dish}', [DishController::class, 'update']);
-        Route::delete('/{dish}', [DishController::class, 'delete']);
-        Route::patch('/swap/{dish1}/{dish2}', [DishController::class, 'swap']);
+    Route::prefix('dish')->group(function () {
+        Route::get('/{dish}', [DishController::class, 'show']);
+
+        Route::middleware(['auth:sanctum', 'adminOnly'])->group(function () {
+            Route::post('/', [DishController::class, 'store']);
+            Route::put('/{dish}', [DishController::class, 'update']);
+            Route::delete('/{dish}', [DishController::class, 'delete']);
+            Route::patch('/swap/{dish1}/{dish2}', [DishController::class, 'swap']);
+        });
     });
 });
 

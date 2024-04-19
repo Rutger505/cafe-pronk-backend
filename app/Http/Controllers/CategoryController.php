@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public function show(Category $category): Category
+    {
+        return $category;
+    }
+
     public function store(Request $request): JsonResponse
     {
         $request->validate([
