@@ -26,18 +26,26 @@ Route::prefix('auth')->group(function () {
 Route::prefix('menu')->group(function () {
     Route::get('/', [MenuController::class, 'index']);
 
-    Route::group(['prefix' => 'category', 'middleware' => ['auth:sanctum', 'adminOnly']], function () {
-        Route::post('/', [CategoryController::class, 'store']);
-        Route::put('/{category}/', [CategoryController::class, 'update']);
-        Route::delete('/{category}', [CategoryController::class, 'delete']);
-        Route::patch('/swap/{category1}/{category2}', [CategoryController::class, 'swap']);
+    Route::prefix("category")->group(function () {
+        Route::get('/{category}', [CategoryController::class, 'show']);
+
+        Route::middleware(['auth:sanctum', 'adminOnly'])->group(function () {
+            Route::post('/', [CategoryController::class, 'store']);
+            Route::put('/{category}/', [CategoryController::class, 'update']);
+            Route::delete('/{category}', [CategoryController::class, 'delete']);
+            Route::patch('/swap/{category1}/{category2}', [CategoryController::class, 'swap']);
+        });
     });
 
-    Route::group(['prefix' => 'dish', 'middleware' => ['auth:sanctum', 'adminOnly']], function () {
-        Route::post('/', [DishController::class, 'store']);
-        Route::put('/{dish}', [DishController::class, 'update']);
-        Route::delete('/{dish}', [DishController::class, 'delete']);
-        Route::patch('/swap/{dish1}/{dish2}', [DishController::class, 'swap']);
+    Route::prefix('dish')->group(function () {
+        Route::get('/{dish}', [DishController::class, 'show']);
+
+        Route::middleware(['auth:sanctum', 'adminOnly'])->group(function () {
+            Route::post('/', [DishController::class, 'store']);
+            Route::put('/{dish}', [DishController::class, 'update']);
+            Route::delete('/{dish}', [DishController::class, 'delete']);
+            Route::patch('/swap/{dish1}/{dish2}', [DishController::class, 'swap']);
+        });
     });
 });
 
@@ -54,7 +62,8 @@ Route::prefix('contact')->group(function () {
 
     Route::middleware(['auth:sanctum', 'adminOnly'])->group(function () {
         Route::get('/', [ContactController::class, 'index']);
-        Route::delete('/{contactMessage}', [ContactController::class, 'delete']);
+        Route::patch('/read/{contact}', [ContactController::class, 'markAsRead']);
+        Route::patch('/unread/{contact}', [ContactController::class, 'markAsUnRead']);
     });
 });
 
@@ -65,7 +74,6 @@ Route::prefix('reservations')->group(function () {
         Route::get('/', [ReservationsController::class, 'index']);
         Route::patch('/accept/{reservation}', [ReservationsController::class, 'accept']);
         Route::patch('/decline/{reservation}', [ReservationsController::class, 'decline']);
-        Route::delete('/{reservation}', [ReservationsController::class, 'delete']);
     });
 });
 
@@ -77,7 +85,6 @@ Route::prefix('user')->middleware('auth:sanctum')->group(function () {
     Route::patch('/name', [UserController::class, 'changeName']);
     Route::patch('/email', [UserController::class, 'changeEmail']);
     Route::patch('/password', [UserController::class, 'changePassword']);
-    Route::delete('/delete', [UserController::class, 'delete']);
 });
 
 

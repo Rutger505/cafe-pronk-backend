@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactMessage;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -24,7 +23,10 @@ class ContactController extends Controller
             'message' => 'required|string',
         ]);
 
+        $user = $request->user("sanctum");
+
         return ContactMessage::create([
+            'user_id' => $user ? $user->id : null,
             'name' => $request->name,
             'business_name' => $request->business_name,
             'email' => $request->email,
@@ -33,9 +35,19 @@ class ContactController extends Controller
         ]);
     }
 
-    public function delete(ContactMessage $contactMessage): JsonResponse
+    public function markAsRead(ContactMessage $message): ContactMessage
     {
-        $contactMessage->delete();
-        return response()->json(['message' => 'Contact message deleted']);
+        $message->Update([
+            'read' => true,
+        ]);
+        return $message;
+    }
+
+    public function markAsUnRead(ContactMessage $message): ContactMessage
+    {
+        $message->Update([
+            'read' => false,
+        ]);
+        return $message;
     }
 }
