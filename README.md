@@ -1,4 +1,4 @@
-# thuisbezorgd-backend
+# cafe-pronk-backend
 
 School project, making Cafe Pronk. Backend in Laravel, [Frontend](https://github.com/Rutger505/cafe-pronk-frontend) in Next.js
 
