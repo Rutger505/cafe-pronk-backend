@@ -14,7 +14,7 @@ class UserController extends Controller
     {
         return User::all();
     }
-    
+
     public function show(Request $request): User
     {
         return $request->user('sanctum');
@@ -35,34 +35,12 @@ class UserController extends Controller
         return $request->user('sanctum')->contactMessages;
     }
 
-    public function changeName(Request $request): JsonResponse
+    public function update(Request $request)
     {
         $request->validate([
-            'name' => 'required|string'
-        ]);
-
-         $request->user('sanctum')->update([
-            'name' => $request->name
-        ]);
-        return response()->json(['message' => 'Name updated']);
-    }
-
-    public function changeEmail(Request $request): JsonResponse
-    {
-        $request->validate([
-            'email' => 'required|email'
-        ]);
-
-        $request->user('sanctum')->update([
-            'email' => $request->email
-        ]);
-        return response()->json(['message' => 'Email updated']);
-    }
-
-    public function changePassword(Request $request): JsonResponse
-    {
-        $request->validate([
-            'newPassword' => 'required|string',
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'nullable|string',
             'currentPassword' => 'required|string'
         ]);
 
@@ -72,11 +50,19 @@ class UserController extends Controller
             return response()->json(['message' => 'Current password is incorrect'], 400);
         }
 
-        $user->update([
-            'password' => Hash::make($request->newPassword)
-        ]);
 
-        return response()->json(['message' => 'Password updated']);
+        $userData = [
+            'name' => $request->name,
+            'email' => $request->email
+        ];
+
+        if ($request->filled('password')) {
+            $userData['password'] = Hash::make($request->password);
+        }
+
+        $user->update($userData);
+
+        return response()->json(['message' => 'User updated']);
     }
 
     public function delete(Request $request): JsonResponse

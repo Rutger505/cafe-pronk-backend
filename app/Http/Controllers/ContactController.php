@@ -37,7 +37,7 @@ class ContactController extends Controller
 
     public function markAsRead(ContactMessage $message): ContactMessage
     {
-        $message->Update([
+        $message->update([
             'read' => true,
         ]);
         return $message;
@@ -45,7 +45,7 @@ class ContactController extends Controller
 
     public function markAsUnRead(ContactMessage $message): ContactMessage
     {
-        $message->Update([
+        $message->update([
             'read' => false,
         ]);
         return $message;

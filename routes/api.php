@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('auth')->group(function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
-    Route::get('check', [AuthController::class, 'check']);
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('logout', [AuthController::class, 'logout']);
@@ -68,7 +67,9 @@ Route::prefix('contact')->group(function () {
 });
 
 Route::prefix('reservations')->group(function () {
-    Route::post('/', [ReservationsController::class, 'store']);
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/', [ReservationsController::class, 'store']);
+    });
 
     Route::middleware(['auth:sanctum', 'adminOnly'])->group(function () {
         Route::get('/', [ReservationsController::class, 'index']);
@@ -78,14 +79,14 @@ Route::prefix('reservations')->group(function () {
 });
 
 Route::prefix('user')->middleware('auth:sanctum')->group(function () {
-    Route::get('', [UserController::class, 'show']);
+    Route::get('/', [UserController::class, 'show']);
+    Route::put('/', [UserController::class, 'update']);
     Route::get('/orders', [UserController::class, 'orders']);
     Route::get('/reservations', [UserController::class, 'reservations']);
     Route::get('/contact', [UserController::class, 'contactMessages']);
-    Route::patch('/name', [UserController::class, 'changeName']);
-    Route::patch('/email', [UserController::class, 'changeEmail']);
-    Route::patch('/password', [UserController::class, 'changePassword']);
 });
+
+
 
 
 Route::middleware(['auth:sanctum', 'adminOnly'])->group(function () {

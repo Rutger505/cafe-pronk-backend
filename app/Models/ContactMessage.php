@@ -12,6 +12,7 @@ class ContactMessage extends Model
     protected $table = 'contact_messages';
 
     protected $fillable = [
+        'user_id',
         'name',
         'business_name',
         'email',

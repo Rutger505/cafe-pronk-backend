@@ -22,7 +22,11 @@ class ReservationsController extends Controller
             'message' => 'nullable|string',
         ]);
 
+       $user = auth('sanctum')->user();
+
+
         return Reservation::create([
+            'user_id' => $user->id,
             'name' => $request->name,
             'party_size' => $request->party_size,
             'datetime' => $request->datetime,
